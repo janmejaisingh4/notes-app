@@ -12,6 +12,19 @@ This project was created for the **Mobile Development Cohort Assignment** focuse
 - Component-Based Architecture
 
 ---
+# 📸 App Screenshots
+
+## 🏠 Notes Listing Screen
+
+<img src="./assets/images/Screen 01.jpeg" width="300" alt="Notes Listing Screen" />
+
+---
+
+## ✍️ Note Editor Screen
+
+<img src="./assets/images/Screen 02.jpeg" width="300" alt="Note Editor Screen" />
+
+---
 
 # ✨ Features
 
