@@ -1,56 +1,339 @@
-# Welcome to your Expo app 👋
+# 📝 Notes App UI – React Native + Expo Router
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern and responsive Notes Application UI built using React Native with Expo Router.
 
-## Get started
+This project was created for the **Mobile Development Cohort Assignment** focused on:
 
-1. Install dependencies
+- React Native Core Components
+- Responsive Layouts
+- Dark/Light Theme Handling
+- Clean UI Design
+- Keyboard Handling
+- Component-Based Architecture
 
-   ```bash
-   npm install
-   ```
+---
 
-2. Start the app
+# ✨ Features
 
-   ```bash
-   npx expo start
-   ```
+## 📋 Notes Listing Screen
 
-In the output, you'll find options to open the app in a
+- Display notes using `FlatList`
+- Search notes with `TextInput`
+- Responsive card layouts
+- Dark/Light mode adaptation
+- Pressable note cards
+- Tablet responsive grid layout
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## ✍️ Note Editor Screen
 
-## Get a fresh project
+- Note title input
+- Multiline content editor
+- Keyboard safe layout using `KeyboardAvoidingView`
+- Header section using `ImageBackground`
+- Save & Back buttons using `Pressable`
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
+# 🧠 Concepts Used
+
+| Concept | Description |
+|---|---|
+| `FlatList` | Efficient rendering of notes list |
+| `Pressable` | Interactive buttons and cards |
+| `useColorScheme()` | Automatic dark/light theme detection |
+| `useWindowDimensions()` | Responsive UI for phones/tablets |
+| `KeyboardAvoidingView` | Prevent keyboard overlap |
+| `ImageBackground` | Stylish editor header |
+| `StyleSheet.create()` | Clean and optimized styling |
+| `StyleSheet.compose()` | Combining reusable styles |
+| `StyleSheet.flatten()` | Dynamic responsive styling |
+
+---
+
+# 📁 Project Structure
+
+```txt
+notesapp/
+│
+├── assets/
+│   └── images/
+│
+├── src/
+│   ├── app/
+│   │   ├── _layout.tsx
+│   │   ├── index.tsx
+│   │   └── editor.tsx
+│   │
+│   ├── components/
+│   │   ├── common/
+│   │   └── notes/
+│   │
+│   ├── constants/
+│   ├── data/
+│   ├── hooks/
+│   ├── styles/
+│   ├── types/
+│   └── utils/
+│
+├── package.json
+└── README.md
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-### Other setup steps
+# 🎨 UI Highlights
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+- Minimal modern design
+- Consistent spacing system
+- Soft shadows & rounded cards
+- Responsive layouts
+- Dark mode optimized colors
+- Professional typography hierarchy
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+# 📱 Responsive Design
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+The application automatically adapts for:
 
-## Join the community
+- Mobile Phones
+- Tablets
+- Different screen sizes
 
-Join our community of developers creating universal apps.
+Implemented using:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```tsx
+useWindowDimensions()
+```
+
+---
+
+# 🌗 Theme Handling
+
+Automatic system theme detection using:
+
+```tsx
+useColorScheme()
+```
+
+Supports:
+
+- Light Theme
+- Dark Theme
+
+---
+
+# 🚀 Getting Started
+
+# 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/your-username/notes-app.git
+```
+
+---
+
+# 2️⃣ Move Into Project Folder
+
+```bash
+cd notes-app
+```
+
+---
+
+# 3️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+# 4️⃣ Install Expo Dependencies
+
+```bash
+npx expo install expo-router
+npx expo install expo-status-bar
+npx expo install react-native-safe-area-context
+```
+
+---
+
+# 5️⃣ Start Development Server
+
+```bash
+npx expo start
+```
+
+This will start the Expo development server.
+
+---
+
+# 📲 Run Using Expo Go
+
+## Step 1
+
+Install:
+
+- Expo Go from Play Store (Android)
+- Expo Go from App Store (iPhone)
+
+---
+
+## Step 2
+
+Ensure:
+
+- Mobile device and laptop are connected to the same WiFi network
+
+---
+
+## Step 3
+
+Open Expo Go and scan the QR code shown in terminal/browser.
+
+The application will open instantly on your device.
+
+---
+
+# 💻 Run on Emulator
+
+## Android Emulator
+
+Press:
+
+```txt
+a
+```
+
+inside terminal after running:
+
+```bash
+npx expo start
+```
+
+---
+
+## iOS Simulator (Mac Only)
+
+Press:
+
+```txt
+i
+```
+
+inside terminal.
+
+---
+
+# 🛠 Tech Stack
+
+- React Native
+- Expo
+- Expo Router
+- TypeScript
+- React Hooks
+
+---
+
+# 📦 Components Used
+
+## Core Components
+
+- `SafeAreaView`
+- `View`
+- `Text`
+- `FlatList`
+- `TextInput`
+- `Pressable`
+- `Switch`
+- `KeyboardAvoidingView`
+- `ImageBackground`
+
+---
+
+# 🪝 Hooks Used
+
+- `useState`
+- `useMemo`
+- `useColorScheme`
+- `useWindowDimensions`
+
+---
+
+# 📸 Screens Included
+
+| Screen | Description |
+|---|---|
+| Notes List Screen | Shows all notes in responsive cards |
+| Editor Screen | Used for writing/editing notes |
+
+---
+
+# 🌟 Additional Enhancements
+
+- Responsive tablet layout
+- Reusable components
+- Clean architecture
+- Modern card UI
+- Pressable interaction feedback
+- Empty state handling
+- Optimized spacing system
+
+---
+
+# 🧪 Testing
+
+Tested on:
+
+- Android Device
+- Expo Go
+- Responsive layouts
+- Dark & Light modes
+
+---
+
+# 📹 Demo Video
+
+Add your demo video link here:
+
+```txt
+https://your-demo-video-link.com
+```
+
+---
+
+# 🔗 GitHub Repository
+
+Add your repository link here:
+
+```txt
+https://github.com/your-username/notes-app
+```
+
+---
+
+# 📚 Learning Outcome
+
+This project helped practice:
+
+- Mobile UI Design
+- React Native Layout System
+- Responsive App Development
+- Theme Adaptation
+- Component Reusability
+- Professional Project Structuring
+
+---
+
+# 👨‍💻 Author
+
+Janmejai Singh
+
+---
+
+# 📄 License
+
+This project is created for educational and assignment purposes.

@@ -1,98 +1,124 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useMemo, useState } from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  useWindowDimensions,
+} from "react-native";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { notes } from "../data/notes";
+import { useTheme } from "../hooks/useTheme";
+import NoteCard from "../components/notes/NoteCard";
+import ThemeToggle from "../components/notes/ThemeToggle";
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
+  const { colors, isDark } = useTheme();
+  const [search, setSearch] = useState("");
+
+  const { width } = useWindowDimensions();
+
+  const numColumns = width > 700 ? 2 : 1;
+
+  const filteredNotes = useMemo(() => {
+    return notes.filter((note) =>
+      note.title.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [search]);
+
+  const dynamicContainer = StyleSheet.flatten([
+    styles.container,
+    {
+      backgroundColor: colors.background,
+    },
+  ]);
+
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <SafeAreaView style={dynamicContainer}>
+      <View style={styles.header}>
+        <Text style={[styles.heading, { color: colors.text }]}>
+          My Notes
+        </Text>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+        <ThemeToggle isDark={isDark} />
+      </View>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+      <TextInput
+        placeholder="Search notes..."
+        placeholderTextColor={colors.subText}
+        value={search}
+        onChangeText={setSearch}
+        style={[
+          styles.searchInput,
+          {
+            backgroundColor: colors.card,
+            color: colors.text,
+          },
+        ]}
+      />
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      <FlatList
+        data={filteredNotes}
+        key={numColumns}
+        numColumns={numColumns}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <NoteCard item={item} isDark={isDark} />
+        )}
+        ListEmptyComponent={
+          <Text
+            style={[
+              styles.emptyText,
+              { color: colors.subText },
+            ]}
+          >
+            No Notes Found
+          </Text>
+        }
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingTop: 20,
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+
+  heading: {
+    fontSize: 30,
+    fontWeight: "700",
   },
-  title: {
-    textAlign: 'center',
+
+  searchInput: {
+    marginTop: 20,
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: 16,
   },
-  code: {
-    textTransform: 'uppercase',
+
+  listContainer: {
+    paddingTop: 20,
+    paddingBottom: 100,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+
+  emptyText: {
+    textAlign: "center",
+    marginTop: 40,
+    fontSize: 16,
   },
 });
